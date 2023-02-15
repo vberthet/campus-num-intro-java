@@ -1,3 +1,6 @@
+import equipment.DefensiveEquipment;
+import equipment.OffensiveEquipment;
+
 import java.util.Objects;
 
 /**
@@ -12,7 +15,11 @@ public class Player {
     private String name;
     private int life;
     private int attack;
-    private String type;
+    private String archetype;
+
+    private DefensiveEquipment defensiveEquipment;
+
+    private OffensiveEquipment offensiveEquipment;
 
     /**
      * Create a new player using default parameters
@@ -21,21 +28,28 @@ public class Player {
         this.name = "Gandlaf";
         this.life = 6;
         this.attack = 15;
-        this.type = " wizzard";
+        this.archetype = " wizzard";
+        this.defensiveEquipment = new DefensiveEquipment("Cloak",1);
+        this.offensiveEquipment = new OffensiveEquipment("Staff",1);
     }
 
     /**
      * Create a new player using given parameters
-     * @param name name of the player
-     * @param life
-     * @param attack
-     * @param type
+     *
+     * @param name               name of the player
+     * @param life               life point of the player
+     * @param attack             attack level
+     * @param type               archetype of the player (warrior or wizard)
+     * @param defensiveEquipment defensive equipment the player is equipped with
+     * @param offensiveEquipment offensive equipment the player is equipped with
      */
-    public Player(String name, int life, int attack, String type) {
+    public Player(String name, int life, int attack, String type, DefensiveEquipment defensiveEquipment, OffensiveEquipment offensiveEquipment) {
         this.name = name;
         this.life = life;
         this.attack = attack;
-        this.type = type;
+        this.archetype = type;
+        this.defensiveEquipment = defensiveEquipment;
+        this.offensiveEquipment = offensiveEquipment;
     }
 
     public String getName() {
@@ -62,12 +76,28 @@ public class Player {
         this.attack = attack;
     }
 
-    public String getType() {
-        return type;
+    public String getArchetype() {
+        return archetype;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setArchetype(String archetype) {
+        this.archetype = archetype;
+    }
+
+    public DefensiveEquipment getDefensiveEquipment() {
+        return defensiveEquipment;
+    }
+
+    public void setDefensiveEquipment(DefensiveEquipment defensiveEquipment) {
+        this.defensiveEquipment = defensiveEquipment;
+    }
+
+    public OffensiveEquipment getOffensiveEquipment() {
+        return offensiveEquipment;
+    }
+
+    public void setOffensiveEquipment(OffensiveEquipment offensiveEquipment) {
+        this.offensiveEquipment = offensiveEquipment;
     }
 
     @Override
@@ -76,7 +106,9 @@ public class Player {
                 "name='" + name + '\'' +
                 ", life=" + life +
                 ", attack=" + attack +
-                ", type='" + type + '\'' +
+                ", archetype='" + archetype + '\'' +
+                ", defensiveEquipment=" + defensiveEquipment +
+                ", offensiveEquipment=" + offensiveEquipment +
                 '}';
     }
 
@@ -85,11 +117,11 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return life == player.life && attack == player.attack && Objects.equals(name, player.name) && Objects.equals(type, player.type);
+        return life == player.life && attack == player.attack && Objects.equals(name, player.name) && Objects.equals(archetype, player.archetype) && Objects.equals(defensiveEquipment, player.defensiveEquipment) && Objects.equals(offensiveEquipment, player.offensiveEquipment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, life, attack, type);
+        return Objects.hash(name, life, attack, archetype, defensiveEquipment, offensiveEquipment);
     }
 }
